@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class MyReviewCard extends StatefulWidget {
   final double? stars;
@@ -23,13 +24,15 @@ class _MyReviewCardState extends State<MyReviewCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(16.0),
+      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       child: Container(
         child: Column(
           children: [
-            renderStars(),
             renderCategory(),
             renderTitle(),
+            SizedBox(
+              height: 5,
+            ),
             renderContent(),
           ],
         ),
@@ -40,34 +43,50 @@ class _MyReviewCardState extends State<MyReviewCard> {
   renderStars() {
     return Row(
       children: [
-        Text(
-          widget.stars.toString(),
-          style: TextStyle(
-            color: Colors.grey,
+        RatingBarIndicator(
+          rating: widget.stars!,
+          itemBuilder: (context, index) => Icon(
+            Icons.star,
+            color: Colors.amber,
           ),
-        )
+          itemCount: 5,
+          itemSize: 20.0,
+          direction: Axis.horizontal,
+        ),
       ],
     );
   }
 
   renderCategory() {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           widget.category!,
           style: TextStyle(
             color: Colors.grey,
           ),
-        )
+        ),
+        renderStars()
       ],
     );
   }
 
   renderContent() {
+    final ca = widget.createdAt!;
+    final dateStr = '${ca.year}-${ca.month}-${ca.day}';
+
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           widget.content!,
+          style: TextStyle(
+            color: Colors.grey[200],
+          ),
+        ),
+        Text(
+          dateStr,
           style: TextStyle(
             color: Colors.grey,
           ),
@@ -77,24 +96,15 @@ class _MyReviewCardState extends State<MyReviewCard> {
   }
 
   renderTitle() {
-    final ca = widget.createdAt!;
-    final dateStr = '${ca.year}-${ca.month}-${ca.day}';
-
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           widget.title!,
           style: TextStyle(
+            fontSize: 20.0,
             fontWeight: FontWeight.bold,
           ),
         ),
-        Text(
-          dateStr,
-          style: TextStyle(
-            color: Colors.grey,
-          ),
-        )
       ],
     );
   }

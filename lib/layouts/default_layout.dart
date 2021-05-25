@@ -19,12 +19,9 @@ class _DefaultLayoutState extends State<DefaultLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       floatingActionButton: widget.floatingActionButton,
-      appBar: AppBar(
-        title: Text(
-          widget.title == null ? '코드팩토리' : widget.title!,
-        ),
-      ),
+      appBar: AppBar(),
       body: SafeArea(
         child: widget.body,
       ),

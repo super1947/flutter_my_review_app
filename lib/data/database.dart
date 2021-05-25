@@ -16,7 +16,10 @@ LazyDatabase _openConnection() {
   });
 }
 
-@UseMoor(tables: [MyReview], daos: [MyReviewDao])
+@UseMoor(
+  tables: [MyReview],
+  daos: [MyReviewDao],
+)
 class Database extends _$Database {
   Database() : super(_openConnection());
 

@@ -17,9 +17,18 @@ class MyReview extends Table {
 class MyReviewDao extends DatabaseAccessor<Database> with _$MyReviewDaoMixin {
   MyReviewDao(Database db) : super(db);
 
+  Future<List<MyReviewData>> getAllData() => select(myReview).get();
   Stream<List<MyReviewData>> streamMyReviews() => select(myReview).watch();
   Stream<MyReviewData> streamMyReview(int id) =>
       (select(myReview)..where((tbl) => tbl.id.equals(id))).watchSingle();
 
   Future insertMyReview(MyReviewCompanion data) => into(myReview).insert(data);
+  // Stream<List<MyRevewData>> watchCompletedTasksCustom() {
+  //   return customSelectStream(
+  //     'SELECT category, COUNT * FROM MyReview GROUP BY category;',
+  //     readsFrom: {myReview}
+  //   ).map((rows) {
+  //     return rows.map((row) => myReview.fromData(row.data, db)).toList();
+  //   }); 
+  // }
 }

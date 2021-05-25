@@ -8,12 +8,12 @@ part of 'database.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
 class MyReviewData extends DataClass implements Insertable<MyReviewData> {
-  final int? id;
-  final double? stars;
-  final String? category;
-  final String? title;
-  final String? content;
-  final DateTime? createdAt;
+  final int id;
+  final double stars;
+  final String category;
+  final String title;
+  final String content;
+  final DateTime createdAt;
   MyReviewData(
       {required this.id,
       required this.stars,
@@ -25,59 +25,40 @@ class MyReviewData extends DataClass implements Insertable<MyReviewData> {
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return MyReviewData(
-      id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id']),
+      id: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
       stars: const RealType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}stars']),
+          .mapFromDatabaseResponse(data['${effectivePrefix}stars'])!,
       category: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}category']),
+          .mapFromDatabaseResponse(data['${effectivePrefix}category'])!,
       title: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}title']),
+          .mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
       content: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}content']),
+          .mapFromDatabaseResponse(data['${effectivePrefix}content'])!,
       createdAt: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}created_at']),
+          .mapFromDatabaseResponse(data['${effectivePrefix}created_at'])!,
     );
   }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (!nullToAbsent || id != null) {
-      map['id'] = Variable<int?>(id);
-    }
-    if (!nullToAbsent || stars != null) {
-      map['stars'] = Variable<double?>(stars);
-    }
-    if (!nullToAbsent || category != null) {
-      map['category'] = Variable<String?>(category);
-    }
-    if (!nullToAbsent || title != null) {
-      map['title'] = Variable<String?>(title);
-    }
-    if (!nullToAbsent || content != null) {
-      map['content'] = Variable<String?>(content);
-    }
-    if (!nullToAbsent || createdAt != null) {
-      map['created_at'] = Variable<DateTime?>(createdAt);
-    }
+    map['id'] = Variable<int>(id);
+    map['stars'] = Variable<double>(stars);
+    map['category'] = Variable<String>(category);
+    map['title'] = Variable<String>(title);
+    map['content'] = Variable<String>(content);
+    map['created_at'] = Variable<DateTime>(createdAt);
     return map;
   }
 
   MyReviewCompanion toCompanion(bool nullToAbsent) {
     return MyReviewCompanion(
-      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
-      stars:
-          stars == null && nullToAbsent ? const Value.absent() : Value(stars),
-      category: category == null && nullToAbsent
-          ? const Value.absent()
-          : Value(category),
-      title:
-          title == null && nullToAbsent ? const Value.absent() : Value(title),
-      content: content == null && nullToAbsent
-          ? const Value.absent()
-          : Value(content),
-      createdAt: createdAt == null && nullToAbsent
-          ? const Value.absent()
-          : Value(createdAt),
+      id: Value(id),
+      stars: Value(stars),
+      category: Value(category),
+      title: Value(title),
+      content: Value(content),
+      createdAt: Value(createdAt),
     );
   }
 
@@ -97,12 +78,12 @@ class MyReviewData extends DataClass implements Insertable<MyReviewData> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int?>(id),
-      'stars': serializer.toJson<double?>(stars),
-      'category': serializer.toJson<String?>(category),
-      'title': serializer.toJson<String?>(title),
-      'content': serializer.toJson<String?>(content),
-      'createdAt': serializer.toJson<DateTime?>(createdAt),
+      'id': serializer.toJson<int>(id),
+      'stars': serializer.toJson<double>(stars),
+      'category': serializer.toJson<String>(category),
+      'title': serializer.toJson<String>(title),
+      'content': serializer.toJson<String>(content),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
     };
   }
 
@@ -156,12 +137,12 @@ class MyReviewData extends DataClass implements Insertable<MyReviewData> {
 }
 
 class MyReviewCompanion extends UpdateCompanion<MyReviewData> {
-  final Value<int?> id;
-  final Value<double?> stars;
-  final Value<String?> category;
-  final Value<String?> title;
-  final Value<String?> content;
-  final Value<DateTime?> createdAt;
+  final Value<int> id;
+  final Value<double> stars;
+  final Value<String> category;
+  final Value<String> title;
+  final Value<String> content;
+  final Value<DateTime> createdAt;
   const MyReviewCompanion({
     this.id = const Value.absent(),
     this.stars = const Value.absent(),
@@ -220,22 +201,22 @@ class MyReviewCompanion extends UpdateCompanion<MyReviewData> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     if (id.present) {
-      map['id'] = Variable<int?>(id.value);
+      map['id'] = Variable<int>(id.value);
     }
     if (stars.present) {
-      map['stars'] = Variable<double?>(stars.value);
+      map['stars'] = Variable<double>(stars.value);
     }
     if (category.present) {
-      map['category'] = Variable<String?>(category.value);
+      map['category'] = Variable<String>(category.value);
     }
     if (title.present) {
-      map['title'] = Variable<String?>(title.value);
+      map['title'] = Variable<String>(title.value);
     }
     if (content.present) {
-      map['content'] = Variable<String?>(content.value);
+      map['content'] = Variable<String>(content.value);
     }
     if (createdAt.present) {
-      map['created_at'] = Variable<DateTime?>(createdAt.value);
+      map['created_at'] = Variable<DateTime>(createdAt.value);
     }
     return map;
   }
@@ -260,18 +241,16 @@ class $MyReviewTable extends MyReview
   final String? _alias;
   $MyReviewTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  GeneratedIntColumn? _id;
   @override
-  GeneratedIntColumn get id => _id ??= _constructId();
+  late final GeneratedIntColumn id = _constructId();
   GeneratedIntColumn _constructId() {
     return GeneratedIntColumn('id', $tableName, false,
         hasAutoIncrement: true, declaredAsPrimaryKey: true);
   }
 
   final VerificationMeta _starsMeta = const VerificationMeta('stars');
-  GeneratedRealColumn? _stars;
   @override
-  GeneratedRealColumn get stars => _stars ??= _constructStars();
+  late final GeneratedRealColumn stars = _constructStars();
   GeneratedRealColumn _constructStars() {
     return GeneratedRealColumn(
       'stars',
@@ -281,27 +260,24 @@ class $MyReviewTable extends MyReview
   }
 
   final VerificationMeta _categoryMeta = const VerificationMeta('category');
-  GeneratedTextColumn? _category;
   @override
-  GeneratedTextColumn get category => _category ??= _constructCategory();
+  late final GeneratedTextColumn category = _constructCategory();
   GeneratedTextColumn _constructCategory() {
     return GeneratedTextColumn('category', $tableName, false,
         minTextLength: 1, maxTextLength: 10);
   }
 
   final VerificationMeta _titleMeta = const VerificationMeta('title');
-  GeneratedTextColumn? _title;
   @override
-  GeneratedTextColumn get title => _title ??= _constructTitle();
+  late final GeneratedTextColumn title = _constructTitle();
   GeneratedTextColumn _constructTitle() {
     return GeneratedTextColumn('title', $tableName, false,
         minTextLength: 1, maxTextLength: 20);
   }
 
   final VerificationMeta _contentMeta = const VerificationMeta('content');
-  GeneratedTextColumn? _content;
   @override
-  GeneratedTextColumn get content => _content ??= _constructContent();
+  late final GeneratedTextColumn content = _constructContent();
   GeneratedTextColumn _constructContent() {
     return GeneratedTextColumn(
       'content',
@@ -311,9 +287,8 @@ class $MyReviewTable extends MyReview
   }
 
   final VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
-  GeneratedDateTimeColumn? _createdAt;
   @override
-  GeneratedDateTimeColumn get createdAt => _createdAt ??= _constructCreatedAt();
+  late final GeneratedDateTimeColumn createdAt = _constructCreatedAt();
   GeneratedDateTimeColumn _constructCreatedAt() {
     return GeneratedDateTimeColumn('created_at', $tableName, false,
         defaultValue: Constant(DateTime.now()));
@@ -383,10 +358,8 @@ class $MyReviewTable extends MyReview
 
 abstract class _$Database extends GeneratedDatabase {
   _$Database(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
-  $MyReviewTable? _myReview;
-  $MyReviewTable get myReview => _myReview ??= $MyReviewTable(this);
-  MyReviewDao? _myReviewDao;
-  MyReviewDao get myReviewDao => _myReviewDao ??= MyReviewDao(this as Database);
+  late final $MyReviewTable myReview = $MyReviewTable(this);
+  late final MyReviewDao myReviewDao = MyReviewDao(this as Database);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override

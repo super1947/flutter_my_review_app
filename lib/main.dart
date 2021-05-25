@@ -18,7 +18,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        dividerTheme: DividerThemeData(
+          color: Colors.white,
+          indent: 20,
+          endIndent: 20,
+        ),
+        brightness: Brightness.dark,
+        primaryColor: Colors.black,
+        primarySwatch: Colors.deepPurple,
       ),
       home: HomeScreen(),
     );
