@@ -11,6 +11,7 @@ class MyReviewData extends DataClass implements Insertable<MyReviewData> {
   final int id;
   final double stars;
   final String category;
+  final String categoryDetail;
   final String title;
   final String content;
   final DateTime createdAt;
@@ -18,6 +19,7 @@ class MyReviewData extends DataClass implements Insertable<MyReviewData> {
       {required this.id,
       required this.stars,
       required this.category,
+      required this.categoryDetail,
       required this.title,
       required this.content,
       required this.createdAt});
@@ -31,6 +33,8 @@ class MyReviewData extends DataClass implements Insertable<MyReviewData> {
           .mapFromDatabaseResponse(data['${effectivePrefix}stars'])!,
       category: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}category'])!,
+      categoryDetail: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}category_detail'])!,
       title: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
       content: const StringType()
@@ -45,6 +49,7 @@ class MyReviewData extends DataClass implements Insertable<MyReviewData> {
     map['id'] = Variable<int>(id);
     map['stars'] = Variable<double>(stars);
     map['category'] = Variable<String>(category);
+    map['category_detail'] = Variable<String>(categoryDetail);
     map['title'] = Variable<String>(title);
     map['content'] = Variable<String>(content);
     map['created_at'] = Variable<DateTime>(createdAt);
@@ -56,6 +61,7 @@ class MyReviewData extends DataClass implements Insertable<MyReviewData> {
       id: Value(id),
       stars: Value(stars),
       category: Value(category),
+      categoryDetail: Value(categoryDetail),
       title: Value(title),
       content: Value(content),
       createdAt: Value(createdAt),
@@ -69,6 +75,7 @@ class MyReviewData extends DataClass implements Insertable<MyReviewData> {
       id: serializer.fromJson<int>(json['id']),
       stars: serializer.fromJson<double>(json['stars']),
       category: serializer.fromJson<String>(json['category']),
+      categoryDetail: serializer.fromJson<String>(json['categoryDetail']),
       title: serializer.fromJson<String>(json['title']),
       content: serializer.fromJson<String>(json['content']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
@@ -81,6 +88,7 @@ class MyReviewData extends DataClass implements Insertable<MyReviewData> {
       'id': serializer.toJson<int>(id),
       'stars': serializer.toJson<double>(stars),
       'category': serializer.toJson<String>(category),
+      'categoryDetail': serializer.toJson<String>(categoryDetail),
       'title': serializer.toJson<String>(title),
       'content': serializer.toJson<String>(content),
       'createdAt': serializer.toJson<DateTime>(createdAt),
@@ -91,6 +99,7 @@ class MyReviewData extends DataClass implements Insertable<MyReviewData> {
           {int? id,
           double? stars,
           String? category,
+          String? categoryDetail,
           String? title,
           String? content,
           DateTime? createdAt}) =>
@@ -98,6 +107,7 @@ class MyReviewData extends DataClass implements Insertable<MyReviewData> {
         id: id ?? this.id,
         stars: stars ?? this.stars,
         category: category ?? this.category,
+        categoryDetail: categoryDetail ?? this.categoryDetail,
         title: title ?? this.title,
         content: content ?? this.content,
         createdAt: createdAt ?? this.createdAt,
@@ -108,6 +118,7 @@ class MyReviewData extends DataClass implements Insertable<MyReviewData> {
           ..write('id: $id, ')
           ..write('stars: $stars, ')
           ..write('category: $category, ')
+          ..write('categoryDetail: $categoryDetail, ')
           ..write('title: $title, ')
           ..write('content: $content, ')
           ..write('createdAt: $createdAt')
@@ -122,8 +133,10 @@ class MyReviewData extends DataClass implements Insertable<MyReviewData> {
           stars.hashCode,
           $mrjc(
               category.hashCode,
-              $mrjc(title.hashCode,
-                  $mrjc(content.hashCode, createdAt.hashCode))))));
+              $mrjc(
+                  categoryDetail.hashCode,
+                  $mrjc(title.hashCode,
+                      $mrjc(content.hashCode, createdAt.hashCode)))))));
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -131,6 +144,7 @@ class MyReviewData extends DataClass implements Insertable<MyReviewData> {
           other.id == this.id &&
           other.stars == this.stars &&
           other.category == this.category &&
+          other.categoryDetail == this.categoryDetail &&
           other.title == this.title &&
           other.content == this.content &&
           other.createdAt == this.createdAt);
@@ -140,6 +154,7 @@ class MyReviewCompanion extends UpdateCompanion<MyReviewData> {
   final Value<int> id;
   final Value<double> stars;
   final Value<String> category;
+  final Value<String> categoryDetail;
   final Value<String> title;
   final Value<String> content;
   final Value<DateTime> createdAt;
@@ -147,6 +162,7 @@ class MyReviewCompanion extends UpdateCompanion<MyReviewData> {
     this.id = const Value.absent(),
     this.stars = const Value.absent(),
     this.category = const Value.absent(),
+    this.categoryDetail = const Value.absent(),
     this.title = const Value.absent(),
     this.content = const Value.absent(),
     this.createdAt = const Value.absent(),
@@ -155,17 +171,20 @@ class MyReviewCompanion extends UpdateCompanion<MyReviewData> {
     this.id = const Value.absent(),
     required double stars,
     required String category,
+    required String categoryDetail,
     required String title,
     required String content,
     this.createdAt = const Value.absent(),
   })  : stars = Value(stars),
         category = Value(category),
+        categoryDetail = Value(categoryDetail),
         title = Value(title),
         content = Value(content);
   static Insertable<MyReviewData> custom({
     Expression<int>? id,
     Expression<double>? stars,
     Expression<String>? category,
+    Expression<String>? categoryDetail,
     Expression<String>? title,
     Expression<String>? content,
     Expression<DateTime>? createdAt,
@@ -174,6 +193,7 @@ class MyReviewCompanion extends UpdateCompanion<MyReviewData> {
       if (id != null) 'id': id,
       if (stars != null) 'stars': stars,
       if (category != null) 'category': category,
+      if (categoryDetail != null) 'category_detail': categoryDetail,
       if (title != null) 'title': title,
       if (content != null) 'content': content,
       if (createdAt != null) 'created_at': createdAt,
@@ -184,6 +204,7 @@ class MyReviewCompanion extends UpdateCompanion<MyReviewData> {
       {Value<int>? id,
       Value<double>? stars,
       Value<String>? category,
+      Value<String>? categoryDetail,
       Value<String>? title,
       Value<String>? content,
       Value<DateTime>? createdAt}) {
@@ -191,6 +212,7 @@ class MyReviewCompanion extends UpdateCompanion<MyReviewData> {
       id: id ?? this.id,
       stars: stars ?? this.stars,
       category: category ?? this.category,
+      categoryDetail: categoryDetail ?? this.categoryDetail,
       title: title ?? this.title,
       content: content ?? this.content,
       createdAt: createdAt ?? this.createdAt,
@@ -208,6 +230,9 @@ class MyReviewCompanion extends UpdateCompanion<MyReviewData> {
     }
     if (category.present) {
       map['category'] = Variable<String>(category.value);
+    }
+    if (categoryDetail.present) {
+      map['category_detail'] = Variable<String>(categoryDetail.value);
     }
     if (title.present) {
       map['title'] = Variable<String>(title.value);
@@ -227,6 +252,7 @@ class MyReviewCompanion extends UpdateCompanion<MyReviewData> {
           ..write('id: $id, ')
           ..write('stars: $stars, ')
           ..write('category: $category, ')
+          ..write('categoryDetail: $categoryDetail, ')
           ..write('title: $title, ')
           ..write('content: $content, ')
           ..write('createdAt: $createdAt')
@@ -264,7 +290,16 @@ class $MyReviewTable extends MyReview
   late final GeneratedTextColumn category = _constructCategory();
   GeneratedTextColumn _constructCategory() {
     return GeneratedTextColumn('category', $tableName, false,
-        minTextLength: 1, maxTextLength: 10);
+        minTextLength: 1, maxTextLength: 20);
+  }
+
+  final VerificationMeta _categoryDetailMeta =
+      const VerificationMeta('categoryDetail');
+  @override
+  late final GeneratedTextColumn categoryDetail = _constructCategoryDetail();
+  GeneratedTextColumn _constructCategoryDetail() {
+    return GeneratedTextColumn('category_detail', $tableName, false,
+        minTextLength: 1, maxTextLength: 30);
   }
 
   final VerificationMeta _titleMeta = const VerificationMeta('title');
@@ -272,7 +307,7 @@ class $MyReviewTable extends MyReview
   late final GeneratedTextColumn title = _constructTitle();
   GeneratedTextColumn _constructTitle() {
     return GeneratedTextColumn('title', $tableName, false,
-        minTextLength: 1, maxTextLength: 20);
+        minTextLength: 1, maxTextLength: 30);
   }
 
   final VerificationMeta _contentMeta = const VerificationMeta('content');
@@ -296,7 +331,7 @@ class $MyReviewTable extends MyReview
 
   @override
   List<GeneratedColumn> get $columns =>
-      [id, stars, category, title, content, createdAt];
+      [id, stars, category, categoryDetail, title, content, createdAt];
   @override
   $MyReviewTable get asDslTable => this;
   @override
@@ -322,6 +357,14 @@ class $MyReviewTable extends MyReview
           category.isAcceptableOrUnknown(data['category']!, _categoryMeta));
     } else if (isInserting) {
       context.missing(_categoryMeta);
+    }
+    if (data.containsKey('category_detail')) {
+      context.handle(
+          _categoryDetailMeta,
+          categoryDetail.isAcceptableOrUnknown(
+              data['category_detail']!, _categoryDetailMeta));
+    } else if (isInserting) {
+      context.missing(_categoryDetailMeta);
     }
     if (data.containsKey('title')) {
       context.handle(

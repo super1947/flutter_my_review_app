@@ -4,6 +4,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 class MyReviewCard extends StatefulWidget {
   final double? stars;
   final String? category;
+  final String? categoryDetail;
   final String? title;
   final String? content;
   final DateTime? createdAt;
@@ -11,6 +12,7 @@ class MyReviewCard extends StatefulWidget {
   MyReviewCard({
     required this.stars,
     required this.category,
+    required this.categoryDetail,
     required this.title,
     required this.content,
     required this.createdAt,
@@ -26,9 +28,13 @@ class _MyReviewCardState extends State<MyReviewCard> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       child: Container(
+        padding: EdgeInsets.all(20),
+        decoration: BoxDecoration(
+            color: Color(0xff1f1e21), borderRadius: BorderRadius.circular(20)),
         child: Column(
           children: [
             renderCategory(),
+            renderCategoryDetail(),
             renderTitle(),
             SizedBox(
               height: 5,
@@ -68,6 +74,20 @@ class _MyReviewCardState extends State<MyReviewCard> {
           ),
         ),
         renderStars()
+      ],
+    );
+  }
+
+  renderCategoryDetail() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          widget.categoryDetail!,
+          style: TextStyle(
+            color: Colors.grey,
+          ),
+        ),
       ],
     );
   }

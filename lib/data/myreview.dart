@@ -6,8 +6,9 @@ part 'myreview.g.dart';
 class MyReview extends Table {
   IntColumn? get id => integer().autoIncrement()();
   RealColumn? get stars => real()();
-  TextColumn? get category => text().withLength(min: 1, max: 10)();
-  TextColumn? get title => text().withLength(min: 1, max: 20)();
+  TextColumn? get category => text().withLength(min: 1, max: 20)();
+  TextColumn? get categoryDetail => text().withLength(min: 1, max: 30)();
+  TextColumn? get title => text().withLength(min: 1, max: 30)();
   TextColumn? get content => text()();
   DateTimeColumn? get createdAt =>
       dateTime().withDefault(Constant(DateTime.now()))();
@@ -23,12 +24,4 @@ class MyReviewDao extends DatabaseAccessor<Database> with _$MyReviewDaoMixin {
       (select(myReview)..where((tbl) => tbl.id.equals(id))).watchSingle();
 
   Future insertMyReview(MyReviewCompanion data) => into(myReview).insert(data);
-  // Stream<List<MyRevewData>> watchCompletedTasksCustom() {
-  //   return customSelectStream(
-  //     'SELECT category, COUNT * FROM MyReview GROUP BY category;',
-  //     readsFrom: {myReview}
-  //   ).map((rows) {
-  //     return rows.map((row) => myReview.fromData(row.data, db)).toList();
-  //   }); 
-  // }
 }

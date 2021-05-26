@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_review_app/data/database.dart';
 import 'package:my_review_app/data/myreview.dart';
-import 'package:my_review_app/screens/home.dart';
+import 'package:my_review_app/screens/home/home_screen.dart';
 import 'package:get_it/get_it.dart';
+import 'package:my_review_app/screens/ranking/ranking_screen.dart';
+import 'package:my_review_app/screens/write/write_screen.dart';
 
 void main() {
   if (!GetIt.instance.isRegistered<MyReviewDao>()) {
@@ -16,7 +19,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       theme: ThemeData(
         dividerTheme: DividerThemeData(
           color: Colors.white,
@@ -28,6 +31,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
       ),
       home: HomeScreen(),
+      getPages: [
+        GetPage(name: '/home', page: () => HomeScreen()),
+        GetPage(name: '/ranking', page: () => RankingScreen()),
+        GetPage(name: '/write', page: () => WriteScreen()),
+      ],
     );
   }
 }

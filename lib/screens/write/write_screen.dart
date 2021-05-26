@@ -17,6 +17,7 @@ class _WriteScreenState extends State<WriteScreen> {
   String? category;
   String? title;
   String? content;
+  String? categoryDetail;
 
   String? categoryResult;
 
@@ -57,7 +58,8 @@ class _WriteScreenState extends State<WriteScreen> {
                             if (this.content != null &&
                                 this.title != null &&
                                 this.category != null &&
-                                this.stars != null) {
+                                this.stars != null &&
+                                this.categoryDetail != null) {
                               final dao = GetIt.instance<MyReviewDao>();
                               await dao.insertMyReview(
                                 MyReviewCompanion(
@@ -65,6 +67,7 @@ class _WriteScreenState extends State<WriteScreen> {
                                   title: Value(this.title!),
                                   content: Value(this.content!),
                                   category: Value(this.category!),
+                                  categoryDetail: Value(this.categoryDetail!),
                                 ),
                               );
 
@@ -134,6 +137,23 @@ class _WriteScreenState extends State<WriteScreen> {
                   width: 2.0,
                 ),
               ),
+              hintText: '세부 카테고리',
+            ),
+            onSaved: (val) {
+              this.categoryDetail = val;
+            },
+          ),
+          TextFormField(
+            maxLength: 20,
+            decoration: InputDecoration(
+              enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white)),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.deepPurple,
+                  width: 2.0,
+                ),
+              ),
               hintText: '이름',
             ),
             onSaved: (val) {
@@ -185,6 +205,13 @@ class _WriteScreenState extends State<WriteScreen> {
             ),
             onSaved: (val) {
               this.content = val;
+            },
+            validator: (value) {
+              if (value!.isEmpty) {
+                return '필수 입력 항목입니다.';
+              } else {
+                return null;
+              }
             },
           ),
         ],
